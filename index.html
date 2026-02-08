@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ПолиграфФ — Печать этикеток</title>
+<meta name="description" content="Типография ПолиграфФ — производство самоклеящихся этикеток в рулонах. Флексографическая печать, провайдер Честного знака.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --primary: #1a237e;
+    --primary-light: #3949ab;
+    --accent: #ff6f00;
+    --accent-light: #ffa040;
+    --bg: #f5f7fa;
+    --card: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --radius: 16px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.08);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: #fff;
+    padding: 48px 24px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60%; right: -30%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(255,255,255,0.07) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .hero-logo {
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 4px;
+    position: relative;
+  }
+
+  .hero-logo span { color: var(--accent-light); }
+
+  .hero-tagline {
+    font-size: 15px;
+    opacity: 0.85;
+    font-weight: 400;
+    max-width: 340px;
+    margin: 8px auto 0;
+    line-height: 1.5;
+  }
+
+  .badge-row {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 100px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #fff;
+  }
+
+  .badge svg { flex-shrink: 0; }
+
+  .container {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+
+  .section { margin-top: 20px; }
+
+  .section-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    padding-left: 4px;
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    margin-bottom: 12px;
+  }
+
+  .card-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    flex-shrink: 0;
+  }
+
+  .card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+
+  .card p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+
+  .features { display: grid; gap: 12px; }
+
+  .feature-item {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .feature-item .card-icon {
+    margin-bottom: 0;
+    width: 40px; height: 40px;
+    min-width: 40px;
+    border-radius: 10px;
+  }
+
+  .feature-item h4 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+
+  .feature-item p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .icon-blue { background: #e8eaf6; color: var(--primary); }
+  .icon-orange { background: #fff3e0; color: var(--accent); }
+  .icon-green { background: #e8f5e9; color: #2e7d32; }
+  .icon-purple { background: #f3e5f5; color: #7b1fa2; }
+  .icon-red { background: #fce4ec; color: #c62828; }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .stat-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 18px 16px;
+    text-align: center;
+    box-shadow: var(--shadow);
+  }
+
+  .stat-number {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 6px;
+    font-weight: 500;
+  }
+
+  .cta-section {
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+
+  .cta-card {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    text-align: center;
+    color: #fff;
+    box-shadow: 0 8px 32px rgba(26,35,126,0.25);
+  }
+
+  .cta-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .cta-card p {
+    font-size: 14px;
+    opacity: 0.85;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .cta-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 20px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn:active { transform: scale(0.97); }
+  .btn-accent { background: var(--accent); color: #fff; box-shadow: 0 4px 16px rgba(255,111,0,0.35); }
+  .btn-white { background: rgba(255,255,255,0.95); color: var(--primary); box-shadow: 0 2px 12px rgba(0,0,0,0.1); }
+  .btn-outline { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.5); }
+  .btn svg { flex-shrink: 0; }
+
+  .contact-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 24px 20px;
+    box-shadow: var(--shadow);
+    margin-bottom: 12px;
+  }
+
+  .contact-person {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .contact-avatar {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .contact-name { font-size: 16px; font-weight: 700; }
+  .contact-role { font-size: 13px; color: var(--text-muted); }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: var(--bg);
+    text-decoration: none;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.15s;
+  }
+
+  .contact-link:active { background: #e2e8f0; }
+
+  .contact-link-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .btn-save-contact {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    margin-top: 16px;
+    padding: 15px 20px;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(135deg, #2e7d32 0%, #43a047 100%);
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(46,125,50,0.3);
+    transition: transform 0.15s, box-shadow 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .btn-save-contact:active {
+    transform: scale(0.97);
+    box-shadow: 0 2px 8px rgba(46,125,50,0.25);
+  }
+
+  .btn-save-contact svg { flex-shrink: 0; }
+  .btn-save-contact.saved { background: #43a047; pointer-events: none; }
+
+  .footer {
+    text-align: center;
+    padding: 20px 16px 32px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .card, .feature-item, .stat-card, .contact-card {
+      animation: fadeUp 0.5s ease-out both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-logo">Полиграф<span>Ф</span></div>
+  <div class="hero-tagline">Ваш технологический партнёр в&nbsp;печати самоклеящихся этикеток</div>
+  <div class="badge-row">
+    <div class="badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      Провайдер «Честного знака»
+    </div>
+    <div class="badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      Сроки 5–7 дней
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- STATS -->
+  <div class="section">
+    <div class="section-title">В цифрах</div>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number">12</div>
+        <div class="stat-label">секций печати</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">5–7</div>
+        <div class="stat-label">дней производство</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">12</div>
+        <div class="stat-label">мес. гарантия</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">24 ч</div>
+        <div class="stat-label">расчёт стоимости</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <div class="section">
+    <div class="section-title">Что мы делаем</div>
+    <div class="card">
+      <div class="card-icon icon-blue">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="12.01"/></svg>
+      </div>
+      <h3>Самоклеящиеся этикетки в рулонах</h3>
+      <p>Флексографическая печать для средних и крупных тиражей. Работаем с плёнкой, бумагой, полиэтиленом — включая специализированные материалы с усиленным клеем для заморозки.</p>
+    </div>
+  </div>
+
+  <!-- CAPABILITIES -->
+  <div class="section">
+    <div class="section-title">Наши возможности</div>
+    <div class="features">
+      <div class="feature-item">
+        <div class="card-icon icon-orange">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <div>
+          <h4>Отделка премиум-класса</h4>
+          <p>Выборочный, структурный и тактильный лак, тиснение, силкфойл, цифровой лак</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="card-icon icon-green">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        </div>
+        <div>
+          <h4>Собственное производство флексоформ</h4>
+          <p>Оперативное изготовление форм — без ожидания внешних подрядчиков</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="card-icon icon-purple">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        </div>
+        <div>
+          <h4>Data Matrix / «Честный знак»</h4>
+          <p>Корректная маркировка продукции — мы официальный провайдер системы</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="card-icon icon-red">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        </div>
+        <div>
+          <h4>Дизайн и допечатная подготовка</h4>
+          <p>Собственные дизайнеры — доработка или создание макета с нуля</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="card-icon icon-blue">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <h4>Гарантия 12 месяцев</h4>
+          <p>На всю продукцию. Вырубной нож — за наш счёт</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <div class="cta-card">
+      <h3>Запросите расчёт</h3>
+      <p>Отправьте ТЗ или макет — и мы подготовим коммерческое предложение, образцы материалов и расчёт стоимости в&nbsp;течение 24&nbsp;часов</p>
+      <div class="cta-buttons">
+        <a href="tel:+79652974401" class="btn btn-accent">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Позвонить
+        </a>
+        <a href="mailto:istomina@poligraff.ru?subject=Запрос%20расчёта%20этикеток" class="btn btn-white">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Написать на почту
+        </a>
+        <a href="https://wa.me/79652974401?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%D0%BF%D0%B5%D1%87%D0%B0%D1%82%D1%8C%20%D1%8D%D1%82%D0%B8%D0%BA%D0%B5%D1%82%D0%BE%D0%BA" class="btn btn-outline">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="section">
+    <div class="section-title">Контактное лицо</div>
+    <div class="contact-card">
+      <div class="contact-person">
+        <div class="contact-avatar">МИ</div>
+        <div>
+          <div class="contact-name">Истомина Мария</div>
+          <div class="contact-role">Менеджер по работе с клиентами</div>
+        </div>
+      </div>
+      <div class="contact-links">
+        <a href="tel:+79652974401" class="contact-link">
+          <div class="contact-link-icon icon-green">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          +7 (965) 297-44-01
+        </a>
+        <a href="mailto:istomina@poligraff.ru" class="contact-link">
+          <div class="contact-link-icon icon-blue">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          istomina@poligraff.ru
+        </a>
+      </div>
+      <button onclick="saveContact()" class="btn-save-contact" id="saveBtn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+        <span>Сохранить контакт</span>
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  &copy; 2026 Типография «ПолиграфФ»
+</div>
+
+<script>
+function saveContact() {
+  var vcard = [
+    'BEGIN:VCARD',
+    'VERSION:3.0',
+    'N:Истомина;Мария;;;',
+    'FN:Мария Истомина — ПолиграфФ',
+    'ORG:Типография ПолиграфФ',
+    'TITLE:Менеджер по работе с клиентами',
+    'TEL;TYPE=CELL:+79652974401',
+    'EMAIL;TYPE=WORK:istomina@poligraff.ru',
+    'URL:https://poligraff.ru',
+    'NOTE:Печать самоклеящихся этикеток в рулонах. Флексография\\, средние и крупные тиражи. Провайдер Честного знака. Сроки 5-7 дней.',
+    'END:VCARD'
+  ].join('\r\n');
+
+  var blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'PoligraffF_Istomina.vcf';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+
+  var btn = document.getElementById('saveBtn');
+  btn.classList.add('saved');
+  btn.textContent = '';
+  var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('width', '20');
+  svg.setAttribute('height', '20');
+  svg.setAttribute('viewBox', '0 0 24 24');
+  svg.setAttribute('fill', 'none');
+  svg.setAttribute('stroke', 'currentColor');
+  svg.setAttribute('stroke-width', '2.5');
+  svg.setAttribute('stroke-linecap', 'round');
+  svg.setAttribute('stroke-linejoin', 'round');
+  var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  path.setAttribute('d', 'M22 11.08V12a10 10 0 1 1-5.93-9.14');
+  svg.appendChild(path);
+  var polyline = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+  polyline.setAttribute('points', '22 4 12 14.01 9 11.01');
+  svg.appendChild(polyline);
+  btn.appendChild(svg);
+  var span = document.createElement('span');
+  span.textContent = 'Контакт сохранён!';
+  btn.appendChild(span);
+}
+</script>
+</body>
+</html>
